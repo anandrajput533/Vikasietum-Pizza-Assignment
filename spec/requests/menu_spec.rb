@@ -11,14 +11,10 @@ RSpec.describe "Api::V1::Menu", type: :request do
   describe "GET /index" do
     it "retrieves all pizzas, crusts, toppings, and sides" do
       get "/api/v1/menu"
-
       expect(response).to have_http_status(:ok)
-
       response_body = JSON.parse(response.body)
-
-      # Ensure pizzas are not empty
       expect(response_body["pizzas"]).not_to be_empty
-      expect(response_body["pizzas"].length).to eq(2) # Expecting 2 pizzas
+      expect(response_body["pizzas"].length).to eq(2) 
     end
   end
 
@@ -36,11 +32,8 @@ RSpec.describe "Api::V1::Menu", type: :request do
         }
 
         post "/api/v1/menu", params: pizza_params, as: :json
-
         expect(response).to have_http_status(:created)
-
         response_body = JSON.parse(response.body)
-
         expect(response_body["message"]).to eq("Pizza added successfully")
         expect(response_body["pizza"]["name"]).to eq("Deluxe Veggie")
         expect(response_body["pizza"]["size"]).to eq("Regular")
@@ -58,13 +51,9 @@ RSpec.describe "Api::V1::Menu", type: :request do
             is_vegetarian: true
           }
         }
-
         post "/api/v1/menu", params: pizza_params, as: :json
-
         expect(response).to have_http_status(:unprocessable_entity)
-
         response_body = JSON.parse(response.body)
-
         expect(response_body["error"]).to include("Price can't be blank")
       end
     end

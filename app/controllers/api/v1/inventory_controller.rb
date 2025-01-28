@@ -5,7 +5,6 @@ class Api::V1::InventoryController < ApplicationController
   end
 
   def update
-    Rails.logger.debug("Parameters received: #{params.inspect}")
     inventory = Inventory.find_by(ingredient_name: params[:ingredient_name])
     if inventory
       inventory.stock += params[:stock].to_i
@@ -19,4 +18,3 @@ class Api::V1::InventoryController < ApplicationController
     end
   end
 end
-  
